@@ -23,6 +23,11 @@ export default function Home() {
     setTasks(updatedTasks);
   };
 
+  const deleteTask = (index: number) => {
+    const updatedTasks = tasks.filter((_, taskIndex) => taskIndex !== index);
+    setTasks(updatedTasks);
+  };
+
   return (
     <main className="todo-container">
       <h1>TODO APPLICATION</h1>
@@ -46,6 +51,7 @@ export default function Home() {
                 checked={item.completed}
                 onChange={() => toggleTask(index)}
               />
+
               <span
                 style={{
                   textDecoration: item.completed ? "line-through" : "none",
@@ -55,7 +61,7 @@ export default function Home() {
               </span>
             </label>
 
-            <button>Delete</button>
+            <button onClick={() => deleteTask(index)}>Delete</button>
           </div>
         ))}
       </div>
