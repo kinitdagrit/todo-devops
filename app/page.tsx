@@ -4,17 +4,23 @@ import { useState } from "react";
 
 export default function Home() {
   const [task, setTask] = useState("");
-  const [tasks, setTasks] = useState<string[]>([
-    "Finish assignment",
-    "Study Next.js",
-    "Setup Git repository",
+  const [tasks, setTasks] = useState([
+    { text: "Finish assignment", completed: false },
+    { text: "Study Next.js", completed: false },
+    { text: "Setup Git repository", completed: true },
   ]);
 
   const addTask = () => {
     if (task.trim() === "") return;
 
-    setTasks([...tasks, task]);
+    setTasks([...tasks, { text: task, completed: false }]);
     setTask("");
+  };
+
+  const toggleTask = (index: number) => {
+    const updatedTasks = [...tasks];
+    updatedTasks[index].completed = !updatedTasks[index].completed;
+    setTasks(updatedTasks);
   };
 
   return (
@@ -35,9 +41,20 @@ export default function Home() {
         {tasks.map((item, index) => (
           <div className="task" key={index}>
             <label>
-              <input type="checkbox" />
-              {item}
+              <input
+                type="checkbox"
+                checked={item.completed}
+                onChange={() => toggleTask(index)}
+              />
+              <span
+                style={{
+                  textDecoration: item.completed ? "line-through" : "none",
+                }}
+              >
+                {item.text}
+              </span>
             </label>
+
             <button>Delete</button>
           </div>
         ))}
