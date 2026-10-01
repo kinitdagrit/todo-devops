@@ -30,7 +30,7 @@ export default function Home() {
 
   return (
     <main className="todo-container">
-      <h1>TODO APPLICATION</h1>
+      <h1>TODO APPLICATION — Version 1.1 Development</h1>
 
       <div className="task-input">
         <input
